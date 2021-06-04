@@ -6,20 +6,111 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>dos2unix</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>541</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QListView" name="listView_2"/>
+     </item>
+     <item>
+      <widget class="QListView" name="listView"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>210</y>
+      <width>481</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>변환</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QComboBox" name="comboBox">
+       <item>
+        <property name="text">
+         <string>ASCII (기본)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>7bit</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ISO</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Mac</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QCheckBox" name="checkBox">
+       <property name="text">
+        <string>덮어쓰기</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>180</y>
+      <width>80</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>열기</string>
+    </property>
+    <property name="shortcut">
+     <string>Ctrl+O</string>
+    </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>600</width>
      <height>23</height>
     </rect>
    </property>
