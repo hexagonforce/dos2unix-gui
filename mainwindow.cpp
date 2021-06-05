@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
+
 #include <iostream>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     list_of_files = new QStringListModel();
     ui->file_list->setModel(list_of_files);
+    setAcceptDrops(true);
 }
 
 MainWindow::~MainWindow()
@@ -22,7 +24,8 @@ void MainWindow::on_addFiles_clicked()
     dialog.setFileMode(QFileDialog::ExistingFiles);
     QStringList fileNames;
     if (dialog.exec()){
-        this->add_files_to_list(dialog.selectedFiles());
+        fileNames = dialog.selectedFiles();
+        this->add_files_to_list(fileNames);
     }
 }
 
@@ -41,4 +44,19 @@ void MainWindow::add_files_to_list(QStringList &fileNames){
             }
         }
     }
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *e){
+    if (e->mimeData()->hasUrls()){
+        e->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent *e){
+    QStringList fileNames;
+    foreach (const QUrl &url, e->mimeData()->urls()){
+        QString fileName = url.toLocalFile();
+        fileNames << fileName;
+    }
+    add_files_to_list(fileNames);
 }
