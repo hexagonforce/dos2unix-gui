@@ -77,7 +77,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QListView" name="file_list">
+   <widget class="QListView" name="files_listview">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -85,6 +85,15 @@
       <width>541</width>
       <height>241</height>
      </rect>
+    </property>
+    <property name="dragDropMode">
+     <enum>QAbstractItemView::DropOnly</enum>
+    </property>
+    <property name="defaultDropAction">
+     <enum>Qt::CopyAction</enum>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::MultiSelection</enum>
     </property>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget">
@@ -96,7 +105,7 @@
       <height>31</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0,0,0,0,0,0">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0,0,0,0">
      <item row="0" column="4">
       <widget class="QLabel" name="label">
        <property name="text">

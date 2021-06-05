@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
+
 #include <iostream>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -8,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     list_of_files = new QStringListModel();
-    ui->file_list->setModel(list_of_files);
+    ui->files_listview->setModel(list_of_files);
+    setAcceptDrops(true);
 }
 
 MainWindow::~MainWindow()
@@ -42,4 +44,32 @@ void MainWindow::add_files_to_list(QStringList &fileNames){
             }
         }
     }
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *e){
+    if (e->mimeData()->hasUrls()){
+        e->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent *e){
+    QStringList fileNames;
+    foreach (const QUrl &url, e->mimeData()->urls()){
+        QString fileName = url.toLocalFile();
+        fileNames << fileName;
+    }
+    add_files_to_list(fileNames);
+}
+
+void MainWindow::on_deleteFiles_clicked()
+{
+    ui->files_listview->setUpdatesEnabled(false);
+    auto selectedIndexes = ui->files_listview->selectionModel()->selectedIndexes();
+
+    qSort(selectedIndexes.begin(), selectedIndexes.end());
+    for (QModelIndexList::const_iterator it = selectedIndexes.constEnd() - 1;
+         it >= selectedIndexes.constBegin(); --it){
+        list_of_files->removeRow(it->row());
+    }
+    ui->files_listview->setUpdatesEnabled(true);
 }

@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QStringListModel>
 #include <QStringList>
+#include <QMimeData>
+#include <QDragEnterEvent>
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +27,12 @@ private slots:
     void on_directoryPicker_clicked();
 
     void add_files_to_list(QStringList& fileNames);
+
+    void dragEnterEvent(QDragEnterEvent *e);
+
+    void dropEvent (QDropEvent *e);
+
+    void on_deleteFiles_clicked();
 
 private:
     Ui::MainWindow *ui;
