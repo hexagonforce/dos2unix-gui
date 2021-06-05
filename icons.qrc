@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+ <qresource>
+     <file>icons/add-file.png</file>
+     <file>icons/delete-bin.png</file>
+     <file>icons/folder-line.png</file>
+ </qresource>
+ </RCC>
