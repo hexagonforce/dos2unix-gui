@@ -6,6 +6,9 @@
 #include <QStringList>
 #include <QMimeData>
 #include <QDragEnterEvent>
+#include <QProcess>
+#include <QFileDialog>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +36,8 @@ private slots:
     void dropEvent (QDropEvent *e);
 
     void on_deleteFiles_clicked();
+
+    void on_convert_clicked();
 
 private:
     Ui::MainWindow *ui;

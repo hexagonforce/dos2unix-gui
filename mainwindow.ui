@@ -93,7 +93,7 @@
      <enum>Qt::CopyAction</enum>
     </property>
     <property name="selectionMode">
-     <enum>QAbstractItemView::MultiSelection</enum>
+     <enum>QAbstractItemView::ExtendedSelection</enum>
     </property>
    </widget>
    <widget class="QWidget" name="gridLayoutWidget">
@@ -120,6 +120,9 @@
       <widget class="QLineEdit" name="directory_textbox">
        <property name="text">
         <string/>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

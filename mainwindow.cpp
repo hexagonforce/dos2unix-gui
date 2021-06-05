@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QFileDialog>
+
 
 #include <iostream>
 MainWindow::MainWindow(QWidget *parent) :
@@ -72,4 +72,36 @@ void MainWindow::on_deleteFiles_clicked()
         list_of_files->removeRow(it->row());
     }
     ui->files_listview->setUpdatesEnabled(true);
+}
+
+void MainWindow::on_convert_clicked()
+{
+    QProcess process;
+    QStringList args;
+    if (not ui->overwrite_checker->isChecked()){
+        if (ui->directory_textbox->text() == ""){
+            QMessageBox need_directory(this);
+            need_directory.setText("저장할 경로를 선택하십시오.");
+            need_directory.exec();
+            return;
+        }
+        //args << " -n";
+        for (auto path: list_of_files->stringList()){
+            std::cout << QUrl(path).fileName().toStdString() << std::endl;
+        }
+    }
+    int result = system("dos2unix");
+    if (result != 0){
+        QMessageBox not_installed(this);
+        not_installed.setText("dos2Unix를 설치하십시오.");
+        not_installed.exec();
+        return;
+    }
+
+    process.execute("dos2unix", args);
+
+    if (process.exitCode() == 0){
+        list_of_files->removeRows(0, list_of_files->rowCount());
+        ui->directory_textbox->setText("");
+    }
 }
