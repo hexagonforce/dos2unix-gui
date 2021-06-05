@@ -22,7 +22,8 @@ void MainWindow::on_addFiles_clicked()
     dialog.setFileMode(QFileDialog::ExistingFiles);
     QStringList fileNames;
     if (dialog.exec()){
-        this->add_files_to_list(dialog.selectedFiles());
+        fileNames = dialog.selectedFiles();
+        this->add_files_to_list(fileNames);
     }
 }
 
