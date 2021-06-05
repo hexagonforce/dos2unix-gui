@@ -78,18 +78,32 @@ void MainWindow::on_convert_clicked()
 {
     QProcess process;
     QStringList args;
-    if (not ui->overwrite_checker->isChecked()){
-        if (ui->directory_textbox->text() == ""){
+    QFileInfo newDir(ui->directory_textbox->text());
+    if (ui->overwrite_checker->isChecked()){
+        if (not newDir.exists()){
             QMessageBox need_directory(this);
             need_directory.setText("저장할 경로를 선택하십시오.");
             need_directory.exec();
             return;
         }
-        //args << " -n";
+        args << "-n";
+
         for (auto path: list_of_files->stringList()){
-            std::cout << QUrl(path).fileName().toStdString() << std::endl;
+            QFileInfo curr = QFileInfo(path);
+            QString filename = curr.fileName();
+            QString curr_folder = curr.absolutePath();
+            if (curr_folder == newDir.absoluteFilePath()){
+                filename += "_unix";
+            }
+            args << path;
+            args << newDir.absoluteFilePath() + "/" + filename;
         }
     }
+
+//    for (auto arg : args){
+//        std::cout << arg.toStdString() << std::endl;
+//    }
+
     int result = system("dos2unix");
     if (result != 0){
         QMessageBox not_installed(this);
@@ -97,7 +111,6 @@ void MainWindow::on_convert_clicked()
         not_installed.exec();
         return;
     }
-
     process.execute("dos2unix", args);
 
     if (process.exitCode() == 0){

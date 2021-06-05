@@ -51,7 +51,7 @@
      <item>
       <widget class="QCheckBox" name="overwrite_checker">
        <property name="text">
-        <string>덮어쓰기</string>
+        <string>새 파일 생성</string>
        </property>
       </widget>
      </item>
