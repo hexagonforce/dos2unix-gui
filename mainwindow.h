@@ -32,6 +32,8 @@ private slots:
 
     void dropEvent (QDropEvent *e);
 
+    void on_deleteFiles_clicked();
+
 private:
     Ui::MainWindow *ui;
     QStringListModel *list_of_files;

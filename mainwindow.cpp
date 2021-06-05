@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     list_of_files = new QStringListModel();
-    ui->file_list->setModel(list_of_files);
+    ui->files_listview->setModel(list_of_files);
     setAcceptDrops(true);
 }
 
@@ -59,4 +59,17 @@ void MainWindow::dropEvent(QDropEvent *e){
         fileNames << fileName;
     }
     add_files_to_list(fileNames);
+}
+
+void MainWindow::on_deleteFiles_clicked()
+{
+    ui->files_listview->setUpdatesEnabled(false);
+    auto selectedIndexes = ui->files_listview->selectionModel()->selectedIndexes();
+
+    qSort(selectedIndexes.begin(), selectedIndexes.end());
+    for (QModelIndexList::const_iterator it = selectedIndexes.constEnd() - 1;
+         it >= selectedIndexes.constBegin(); --it){
+        list_of_files->removeRow(it->row());
+    }
+    ui->files_listview->setUpdatesEnabled(true);
 }
