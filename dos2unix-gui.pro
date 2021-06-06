@@ -35,3 +35,6 @@ FORMS += \
 
 RESOURCES += \
     icons.qrc
+
+CONFIG += \
+    static
