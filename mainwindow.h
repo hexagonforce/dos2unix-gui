@@ -22,6 +22,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void showMessageBox();
+
 private slots:
     //void on_pushButton_clicked();
 
@@ -39,9 +41,12 @@ private slots:
 
     void on_convert_clicked();
 
+    void on_overwrite_checker_stateChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     QStringListModel *list_of_files;
+    void showMessageBox(QMainWindow* w, QString msg);
 };
 
 #endif // MAINWINDOW_H
