@@ -9,6 +9,8 @@
 #include <QProcess>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QUrl>
+#include <QFileInfo>
 
 namespace Ui {
 class MainWindow;
