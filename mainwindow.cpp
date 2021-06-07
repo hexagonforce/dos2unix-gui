@@ -89,7 +89,7 @@ void MainWindow::on_deleteFiles_clicked()
     ui->files_listview->setUpdatesEnabled(false);
     auto selectedIndexes = ui->files_listview->selectionModel()->selectedIndexes();
 
-    qSort(selectedIndexes.begin(), selectedIndexes.end());
+    std::sort(selectedIndexes.begin(), selectedIndexes.end());
     for (QModelIndexList::const_iterator it = selectedIndexes.constEnd() - 1;
          it >= selectedIndexes.constBegin(); --it){
         list_of_files->removeRow(it->row());
@@ -99,7 +99,6 @@ void MainWindow::on_deleteFiles_clicked()
 
 void MainWindow::on_convert_clicked()
 {
-    QProcess process;
     QStringList args;
 
     // if no files, exit gracefully
@@ -115,7 +114,6 @@ void MainWindow::on_convert_clicked()
 
 
     if (ui->overwrite_checker->isChecked()){ // newfile mode
-
         QFileInfo target_directory(ui->directory_textbox->text());
         // if no directory specified, exit gracefully
         if (not target_directory.exists() or not target_directory.isWritable()){
@@ -141,25 +139,25 @@ void MainWindow::on_convert_clicked()
         }
     }
 
-//    for (auto arg : args){
-//        std::cerr << arg.toStdString() << " ";
-//    }
-//    std::cerr << std::endl;
-
-    int result = system("dos2unix");
+    int result = QProcess::execute(PROGRAM_NAME, QStringList() << "-V");
     if (result != 0){
         showMessageBox(this, "dos2unix를 설치해주십시오.");
         return;
     }
-    process.execute("dos2unix", args);
 
-    if (process.exitCode() == 0){
+    int exitCode = QProcess::execute(PROGRAM_NAME, args);
+    if (exitCode == 0){
         list_of_files->removeRows(0, list_of_files->rowCount());
         ui->directory_textbox->setText("");
+        ui->overwrite_checker->setChecked(false);
+        showMessageBox(this, "정상적으로 처리되었습니다.");
+    }
+    else{
+        showMessageBox(this, "오류가 발생하였습니다.");
     }
 }
 
-void MainWindow::on_overwrite_checker_stateChanged(int arg1)
+void MainWindow::on_overwrite_checker_stateChanged()
 {
     bool enable_directory_select = ui->overwrite_checker->isChecked();
     if (not enable_directory_select){

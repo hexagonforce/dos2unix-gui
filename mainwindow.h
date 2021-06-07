@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include <QUrl>
 #include <QFileInfo>
+#include <algorithm>
 
 namespace Ui {
 class MainWindow;
@@ -43,11 +44,12 @@ private slots:
 
     void on_convert_clicked();
 
-    void on_overwrite_checker_stateChanged(int arg1);
+    void on_overwrite_checker_stateChanged();
 
 private:
     Ui::MainWindow *ui;
     QStringListModel *list_of_files;
+    const QString PROGRAM_NAME = "dos2unix";
     void showMessageBox(QMainWindow* w, QString msg);
 };
 
