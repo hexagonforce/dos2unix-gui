@@ -2,5 +2,5 @@
 A simple GUI wrapper for dos2unix utility written with Qt.
 
 Requirements:  
-dos2unix-gui  
-Qt runtime  
+- dos2unix
+- Qt runtim 
